@@ -53,5 +53,6 @@ harmonic.mean(samples)
 
 cv(samples)
 
-B <- function(A){sd(A) / sqrt()}
+B <- function(A){sd(A) / sqrt(length(A))}
+B(samples)  
   
