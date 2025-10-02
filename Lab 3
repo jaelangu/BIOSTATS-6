@@ -1,1 +1,87 @@
+# Jaela Nguyen, Akshit Manchanda, Rose Morgan, Korto Mulbah, Tony Nguyen, Emma Noonan
+
+install.packages("devtools")
+library(devtools)
+install_github("shearer/PropCIs")
+library(PropCIs)
+
+# Group Assignment 2------------------------------------------------------------
+
+#Question 1
+#placebo control group
+n_placebo <- 321
+s_placebo <- 2
+
+pp_placebo <- (s_placebo + 2) / (n_placebo + 4)
+
+w_placebo <- 1.96 * sqrt((pp_placebo * (1 - pp_placebo)) 
+                         / (n_placebo + 4)
+                         )
+
+lower_placebo <- pp_placebo - w_placebo
+lower_placebo # 0.0003206085
+
+upper_placebo <- pp_placebo + w_placebo
+upper_placebo # 0.0242478
+  
+
+#drug-treated experimental group
+n_drug <- 663 - 321
+s_drug <- 65
+
+pp_drug <- (s_drug + 2) / (n_drug + 4)
+
+w_drug <- 1.96 * sqrt((pp_drug * (1 - pp_drug)) 
+                         / (n_drug + 4)
+)
+
+lower_drug <- pp_drug - w_drug
+lower_drug # 0.1520044
+
+upper_drug <- pp_drug + w_drug
+upper_drug # 0.2352788
+
+
+#Question 2
+#Modified Wald method
+mod_placebo <- add4ci(x = 2,
+                      n = 321,
+                      conf.level = 0.95)
+mod_placebo # [0.003208288, 0.02494559]
+
+mod_drug <- add4ci(x = 65,
+                   n = 663 - 321,
+                   conf.level = 0.95)
+mod_drug # [0.1520052, 0.2352780]
+
+
+#Standard Wald method
+stan_placebo <- addz2ci(x = 2,
+                       n = 321,
+                      conf.level = 0.95)
+stan_placebo # [0.0001949546, 0.0239443867]
+
+stan_drug <- add4ci(x = 65,
+                   n = 663 - 321,
+                   conf.level = 0.95)
+stan_drug # [0.1520052, 0.2352780]
+
+
+#Exact Method
+exact_placebo <- exactci(x = 2,
+                        n = 321,
+                        conf.level = 0.95)
+exact_placebo # [0.0007554387, 0.0223243940]
+
+exact_drug <- exactci(x = 65,
+                    n = 663 - 321,
+                    conf.level = 0.95)
+exact_drug # [0.1498559, 0.2357233]
+
+
+#Question 3
+# The Rule of Seven would apply to the placebo-treated group at 95% confidence level.
+# This is because there are 2 successes. 
+# The lower confidence limit would be 0 and the upper would be 7/321 = 0.0218069.
+# This is slightly different than any of the other methods using R.
 
