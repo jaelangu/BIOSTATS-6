@@ -2,6 +2,7 @@
 
 getwd()
 list.files()
+setwd("C:/R")
 
 # 1) Calculations (@92% CI)
 h <- read.table("Lab1_Mouse_DNA_methylation_small_table.txt", header = TRUE)
