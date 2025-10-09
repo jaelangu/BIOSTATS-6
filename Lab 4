@@ -1,1 +1,33 @@
+# Jaela Nguyen, Akshit Manchanda, Rose Morgan, Korto Mulbah, Tony Nguyen, Emma Noonan
 
+getwd()
+list.files()
+
+# 1) Calculations (@92% CI)
+h <- read.table("Lab1_Mouse_DNA_methylation_small_table.txt", header = TRUE)
+row_sh2b3 <- which(h[,1] == "Sh2b3")
+sh2b3 <- h[row_sh2b3, 2:13]
+sample2 <- as.matrix(sh2b3)
+i <- as.numeric(sample2)
+mean(i)
+a <- mean(i)
+L <- sd(i)
+n <- length(i)
+conf.level <- 0.92
+alpha <- 1 - conf.level
+t_star <- qt(1 - alpha/2, df = n - 1)
+W <- t_star * L / sqrt(n)
+LowerLimit <- a - W
+UpperLimit <- a + W
+cat("92% CI for Sh2b3: [", LowerLimit, ",", UpperLimit, "]\n")
+
+# 2) compute the margin of error and CI
+w <- function(alpha, a, n) { qt(1 - alpha/2, n - 1) * sd(a) / sqrt(n) }
+W_fn <- w(alpha, i, n)
+LowerLimit_fn <- mean(i) - W_fn
+UpperLimit_fn <- mean(i) + W_fn
+cat("w() margin of error =", W_fn, "\n")
+cat("w() 92% CI = [", LowerLimit_fn, ",", UpperLimit_fn, "]\n")
+
+# 3) Calculate the CI
+t.test(i, conf.level = conf.level)
