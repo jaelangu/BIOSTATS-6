@@ -1,1 +1,28 @@
+#Jaela Nguyen, Akshit Manchanda, Rose Morgan, Korto Mulbah, Tony Nguyen, Emma Noonan
+# 1) ranking the scores with tidyverse
+install.packages("tidyverse")
+library(tidyverse)
 
+(a <- read.csv("MidtermGradeSheet.csv"))
+head(a)
+
+(a1 <- mutate(a, new_rank = min_rank(desc(Midterm))))
+head(a1)
+
+# STUDENT.ID DR receives rank 1 with a score of 99.5
+
+# 2) added the new column “new_rank” to the original table (already added above)
+(a1)
+
+# shows the each student.id rankings including scores
+
+
+# 3) saving it as a csv file named “ranked_midterm_scores_again.csv”
+write.csv(a1, "ranked_midterm_scores_again.csv", row.names = FALSE)
+
+# make sure the file was created and where it is saved
+getwd()
+
+# The file “ranked_midterm_scores_again.csv” is saved in this folder.
+
+(read.csv("ranked_midterm_scores_again.csv"))
